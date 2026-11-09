@@ -107,7 +107,10 @@ nav {
   text-decoration: none; letter-spacing: .02em;
   transition: color .2s;
 }
+.nav-links a { position: relative; }
+.nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 1.5px; background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform .35s cubic-bezier(.22,.8,.3,1); }
 .nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
 .nav-resume {
   display: inline-flex; align-items: center; gap: 7px;
   font-size: .78rem; font-weight: 600;
@@ -285,10 +288,14 @@ h1.hero-title em {
   border-radius: var(--r); padding: 20px 24px;
   margin: 10px 0 12px; transition: background .2s, border-color .2s;
 }
-.exp-card:hover { background: #FAFAF8; border-color: rgba(11,22,40,.2); }
+.exp-card:hover { background: #FAFAF8; border-color: rgba(201,169,110,.4); transform: translateY(-3px); box-shadow: 0 14px 36px rgba(11,22,40,.08); }
 .exp-role { font-size: .95rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
 .exp-company { font-size: .75rem; color: var(--mid); margin-bottom: 10px; }
 .exp-body { font-size: .8rem; color: var(--mid); line-height: 1.72; font-weight: 300; margin-bottom: 16px; }
+.exp-points { list-style: none; margin: 0 0 16px; padding: 0; }
+.exp-points li { position: relative; padding-left: 15px; font-size: .79rem; color: var(--mid); line-height: 1.62; font-weight: 300; margin-bottom: 7px; }
+.exp-points li:last-child { margin-bottom: 0; }
+.exp-points li::before { content: ''; position: absolute; left: 0; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
 .exp-links { display: flex; gap: 8px; flex-wrap: wrap; }
 .exp-link {
   display: inline-flex; align-items: center; gap: 6px;
@@ -367,16 +374,22 @@ h1.hero-title em {
 .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
 .skill-col-title { font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--soft); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
 .skill-col-title::after { content: ''; flex: 1; height: 1px; background: var(--border-dark); }
-.skill-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.skill-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .skill-card {
   background: var(--white); border: 1.5px solid var(--border-dark);
-  border-radius: 16px; padding: 18px 18px 16px;
-  display: flex; flex-direction: column; gap: 10px;
-  transition: all .25s; cursor: default; position: relative; overflow: hidden;
+  border-radius: 16px; padding: 24px 22px 22px;
+  display: grid; grid-template-columns: auto 1fr; column-gap: 14px; row-gap: 16px; align-items: center;
+  transition: transform .38s cubic-bezier(.22,.8,.3,1), box-shadow .38s cubic-bezier(.22,.8,.3,1), border-color .38s cubic-bezier(.22,.8,.3,1);
+  cursor: default; position: relative; overflow: hidden;
 }
-.skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 16px 16px 0 0; opacity: 0; transition: opacity .25s; }
-.skill-card:hover { border-color: transparent; box-shadow: 0 8px 28px rgba(11,22,40,.1); transform: translateY(-3px); }
-.skill-card:hover::before { opacity: 1; }
+.skill-card > div:last-child { display: contents; }
+.skill-card-name { grid-column: 2; }
+.skill-card-tools { grid-column: 1 / -1; align-self: start; }
+.skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 16px 16px 0 0; opacity: .8; transition: opacity .38s cubic-bezier(.22,.8,.3,1), height .38s cubic-bezier(.22,.8,.3,1); }
+.skill-card:hover { border-color: rgba(201,169,110,.45); box-shadow: 0 16px 40px rgba(11,22,40,.12); transform: translateY(-5px); }
+.skill-card:hover::before { opacity: 1; height: 5px; }
+.skill-card:hover .skill-icon { transform: scale(1.1) rotate(-4deg); }
+.skill-card:hover .skill-tool-tag { border-color: rgba(201,169,110,.45); background: var(--gold-bg); color: var(--ink); }
 .skill-card[data-accent="purple"]::before { background: var(--lilac-ink); }
 .skill-card[data-accent="orange"]::before { background: var(--peach-ink); }
 .skill-card[data-accent="green"]::before  { background: var(--mint-ink); }
@@ -384,12 +397,35 @@ h1.hero-title em {
 .skill-card[data-accent="navy"]::before   { background: var(--navy-3); }
 .skill-card[data-accent="blue"]::before   { background: var(--mist); }
 .skill-card[data-accent="violet"]::before { background: #7C3AED; }
-.skill-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
-.skill-card-name { font-size: .85rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
-.skill-card-tools { font-size: .7rem; color: var(--soft); font-weight: 400; display: flex; flex-wrap: wrap; gap: 4px; }
-.skill-tool-tag { background: var(--cream); border: 1px solid var(--border-dark); border-radius: 20px; padding: 2px 8px; font-size: .65rem; font-weight: 600; color: var(--mid); letter-spacing: .03em; }
+.skill-card[data-accent="teal"]::before   { background: #0F766E; }
+.skill-card[data-accent="rose"]::before   { background: #B03A5B; }
+.skill-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; transition: transform .38s cubic-bezier(.22,.8,.3,1); }
+.skill-card-name { font-size: .92rem; font-weight: 700; color: var(--ink); line-height: 1.25; letter-spacing: -.015em; }
+.skill-card-tools { font-size: .7rem; color: var(--soft); font-weight: 400; display: flex; flex-wrap: wrap; gap: 7px; }
+.skill-tool-tag { background: var(--cream); border: 1px solid var(--border-dark); border-radius: 20px; padding: 5px 12px; font-size: .67rem; font-weight: 600; color: var(--mid); letter-spacing: .03em; line-height: 1.3; transition: background .38s cubic-bezier(.22,.8,.3,1), border-color .38s cubic-bezier(.22,.8,.3,1), color .38s cubic-bezier(.22,.8,.3,1); }
 .skill-card-full { grid-column: 1 / -1; }
+.skill-icon svg { width: 21px; height: 21px; stroke-width: 1.7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.skill-card[data-accent="purple"] .skill-icon svg { stroke: var(--lilac-ink); }
+.skill-card[data-accent="orange"] .skill-icon svg { stroke: var(--peach-ink); }
+.skill-card[data-accent="green"]  .skill-icon svg { stroke: var(--mint-ink); }
+.skill-card[data-accent="gold"]   .skill-icon svg { stroke: var(--golden-ink); }
+.skill-card[data-accent="navy"]   .skill-icon svg { stroke: var(--navy-3); }
+.skill-card[data-accent="blue"]   .skill-icon svg { stroke: var(--mist); }
+.skill-card[data-accent="violet"] .skill-icon svg { stroke: #7C3AED; }
+.skill-card[data-accent="teal"]   .skill-icon svg { stroke: #0F766E; }
+.skill-card[data-accent="rose"]   .skill-icon svg { stroke: #B03A5B; }
+.stack-list { display: flex; flex-direction: column; }
+.stack-row { display: flex; align-items: center; gap: 11px; padding: 11px 12px; margin: 0 -12px; border-radius: 10px; border-bottom: 1px solid var(--border-dark); transition: background .3s cubic-bezier(.22,.8,.3,1); }
+.stack-row:hover { background: var(--gold-bg); }
+.stack-row:hover .stack-dot { transform: scale(1.5); }
+.stack-row:hover .stack-note { color: var(--mid); }
+.stack-row:last-child { border-bottom: none; padding-bottom: 0; }
+.stack-row:first-child { padding-top: 0; }
+.stack-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; transition: transform .3s cubic-bezier(.22,.8,.3,1); }
+.stack-name { font-size: .82rem; font-weight: 600; color: var(--ink); letter-spacing: -.01em; }
+.stack-note { transition: color .3s cubic-bezier(.22,.8,.3,1); margin-left: auto; font-size: .66rem; font-weight: 500; color: var(--soft); letter-spacing: .02em; text-align: right; }
 .soft-panel { background: var(--white); border: 1.5px solid var(--border-dark); border-radius: 18px; padding: 28px; }
+.soft-panel + .soft-panel { margin-top: 14px; }
 .soft-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .soft-chip { font-size: .76rem; font-weight: 500; padding: 9px 18px; border-radius: 40px; border: 1.5px solid rgba(11,22,40,.1); color: var(--ink); background: var(--cream); transition: all .2s; cursor: default; display: flex; align-items: center; gap: 6px; }
 .soft-chip:hover { background: var(--navy-2); color: var(--white); border-color: var(--navy-2); }
@@ -430,6 +466,10 @@ h1.hero-title em {
 .footer-copy { font-size: .65rem; color: rgba(255,255,255,.18); letter-spacing: .08em; }
 .exp-date-badge { display: none; }
 /* ── REVEAL ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1); }
 .reveal.in { opacity: 1; transform: none; }
 
@@ -591,9 +631,9 @@ h1.hero-title em {
   /* Skills */
   .skills-layout { grid-template-columns: 1fr; gap: 32px; }
   .skill-cards-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .skill-card { padding: 14px 14px 12px; border-radius: 14px; }
-  .skill-icon { width: 32px; height: 32px; font-size: 1rem; }
-  .skill-card-name { font-size: .78rem; }
+  .skill-card { padding: 18px 16px 16px; border-radius: 14px; gap: 13px; }
+  .skill-icon { width: 36px; height: 36px; font-size: 1rem; }
+  .skill-card-name { font-size: .84rem; }
   .soft-panel { padding: 20px; }
   .soft-chip { font-size: .72rem; padding: 8px 14px; }
 
@@ -771,9 +811,14 @@ h1.hero-title em {
       <div class="timeline-col"><div class="tl-dot"></div><div class="tl-line"></div></div>
       <div><div class="exp-card" data-date="Aug 2025 – Present">
         <div class="exp-date-badge">Aug 2025 – Present</div>
-        <div class="exp-role">IT Support</div>
+        <div class="exp-role">IT Specialist</div>
         <div class="exp-company">Waad Education Company</div>
-        <div class="exp-body">Providing technical IT support for staff and systems. Troubleshooting hardware/software issues and ensuring smooth day-to-day operations.</div>
+        <ul class="exp-points">
+          <li>Automated nightly retrieval of CCTV footage across all branches with Python and Windows Task Scheduler, replacing a manual daily process.</li>
+          <li>Built a staff device inventory system using branching-logic forms and a tracking workbook with duplicate detection and prior-record matching.</li>
+          <li>Administer 500+ user accounts across Microsoft 365 and Google Workspace, and maintain enterprise platforms including LMS, SIS and assessment tools.</li>
+          <li>Deployed wireless screen mirroring to classroom interactive displays, covering network configuration and end-user training.</li>
+        </ul>
       </div></div>
     </div>
 
@@ -784,7 +829,10 @@ h1.hero-title em {
         <div class="exp-date-badge">Jun – Aug 2025</div>
         <div class="exp-role">IT Training Supervisor</div>
         <div class="exp-company">King Abdulaziz University · Cooperative Training</div>
-        <div class="exp-body">Supervised CS students in UI/UX design with Figma and front-end development. Guided real projects from concept to delivery.</div>
+        <ul class="exp-points">
+          <li>Planned and supervised a training program, mentoring computer science students in web development, database management and Power BI data analysis.</li>
+          <li>Guided student project teams from initial concept through to final delivery.</li>
+        </ul>
         <div class="exp-links">
           <a href="https://www.linkedin.com/in/refal-alharbi-/overlay/Position/2833850288/treasury/?profileId=ACoAAEtd8MwBAdenYkqAwXusGoHtBXdVJV9l-cY" target="_blank" rel="noopener" class="exp-link exp-link-cert">🏅 Certificate</a>
         </div>
@@ -798,7 +846,10 @@ h1.hero-title em {
         <div class="exp-date-badge">Jun – Aug 2024</div>
         <div class="exp-role">UI/UX & Flutter Developer Intern</div>
         <div class="exp-company">Al-Dabbagh Group · Mobile App</div>
-        <div class="exp-body">Designed and built an employee well-being app — Figma prototypes to Flutter. Step tracking, goals, rewards, and supervisor dashboards.</div>
+        <ul class="exp-points">
+          <li>Developed a cross-platform Flutter app (step counter, goals, rewards) with a real-time supervisor dashboard to track participants.</li>
+          <li>Integrated Firebase for data storage and real-time syncing between the app and other systems.</li>
+        </ul>
         <div class="exp-links">
           <a href="https://drive.google.com/file/d/1dP5Sn3DgeWy0Me0UE8gOgJyDKsqq557b/view" target="_blank" rel="noopener" class="exp-link exp-link-project">🔗 View Project</a>
           <a href="https://www.linkedin.com/in/refal-alharbi-/overlay/Position/2833852956/treasury/?profileId=ACoAAEtd8MwBAdenYkqAwXusGoHtBXdVJV9l-cY" target="_blank" rel="noopener" class="exp-link exp-link-cert">🏅 Certificate</a>
@@ -813,7 +864,9 @@ h1.hero-title em {
         <div class="exp-date-badge">Jan – Jun 2024</div>
         <div class="exp-role">Data Analyst Intern</div>
         <div class="exp-company">King Abdulaziz University · Data Team</div>
-        <div class="exp-body">Data cleaning and analysis using Excel and Python. Built interactive Power BI dashboards to surface insights for decision-makers.</div>
+        <ul class="exp-points">
+          <li>Built interactive Power BI dashboards from cleaned Excel data, and used Python (Pandas, NumPy) to automate data processing.</li>
+        </ul>
         <div class="exp-links">
           <a href="https://drive.google.com/file/d/1UuTijWUJujP0D6udKi4kmwUNO9QCMfbx/view" target="_blank" rel="noopener" class="exp-link exp-link-project">🔗 View Project</a>
           <a href="https://www.linkedin.com/in/refal-alharbi-/overlay/Position/2680696146/treasury/?profileId=ACoAAEtd8MwBAdenYkqAwXusGoHtBXdVJV9l-cY" target="_blank" rel="noopener" class="exp-link exp-link-cert">🏅 Certificate</a>
@@ -923,50 +976,81 @@ h1.hero-title em {
   <h2 class="section-title">Core <em>expertise</em></h2>
   <div class="skills-layout reveal">
     <div>
-      <p class="skill-col-title">Professional Skills</p>
+      <p class="skill-col-title">Technical Skills</p>
       <div class="skill-cards-grid">
+
         <div class="skill-card" data-accent="purple">
-          <div class="skill-icon" style="background:var(--lilac); font-size:1.2rem;">🎨</div>
-          <div><div class="skill-card-name">UI / UX Design</div><div class="skill-card-tools"><span class="skill-tool-tag">Figma</span><span class="skill-tool-tag">Prototyping</span></div></div>
+          <div class="skill-icon" style="background:var(--lilac);" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 9v12"/><circle cx="15.5" cy="14.5" r="2"/></svg>
+          </div>
+          <div><div class="skill-card-name">UI / UX Design</div><div class="skill-card-tools"><span class="skill-tool-tag">Figma</span><span class="skill-tool-tag">Wireframing</span><span class="skill-tool-tag">Prototyping</span><span class="skill-tool-tag">User Research</span></div></div>
         </div>
+
         <div class="skill-card" data-accent="orange">
-          <div class="skill-icon" style="background:var(--peach); font-size:1.2rem;">💻</div>
-          <div><div class="skill-card-name">Web Development</div><div class="skill-card-tools"><span class="skill-tool-tag">HTML</span><span class="skill-tool-tag">CSS</span><span class="skill-tool-tag">JS</span></div></div>
+          <div class="skill-icon" style="background:var(--peach);" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></svg>
+          </div>
+          <div><div class="skill-card-name">Front-End Development</div><div class="skill-card-tools"><span class="skill-tool-tag">HTML</span><span class="skill-tool-tag">CSS</span><span class="skill-tool-tag">JavaScript</span><span class="skill-tool-tag">Responsive</span></div></div>
         </div>
+
         <div class="skill-card" data-accent="green">
-          <div class="skill-icon" style="background:var(--mint); font-size:1.2rem;">📱</div>
-          <div><div class="skill-card-name">Mobile Dev</div><div class="skill-card-tools"><span class="skill-tool-tag">Flutter</span><span class="skill-tool-tag">Dart</span></div></div>
+          <div class="skill-icon" style="background:var(--mint);" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5.5h4"/><circle cx="12" cy="18" r="1.1"/></svg>
+          </div>
+          <div><div class="skill-card-name">Mobile Development</div><div class="skill-card-tools"><span class="skill-tool-tag">Flutter</span><span class="skill-tool-tag">Dart</span></div></div>
         </div>
-        <div class="skill-card" data-accent="gold">
-          <div class="skill-icon" style="background:var(--golden); font-size:1.2rem;">📊</div>
-          <div><div class="skill-card-name">Data Analysis</div><div class="skill-card-tools"><span class="skill-tool-tag">Power BI</span><span class="skill-tool-tag">Excel</span></div></div>
-        </div>
+
         <div class="skill-card" data-accent="navy">
-          <div class="skill-icon" style="background:#E8EDF8; font-size:1.2rem;">🗄️</div>
-          <div><div class="skill-card-name">Database</div><div class="skill-card-tools"><span class="skill-tool-tag">SQL</span></div></div>
+          <div class="skill-icon" style="background:#E8EDF8;" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7.5" ry="3"/><path d="M4.5 5.5v13c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-13"/><path d="M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/></svg>
+          </div>
+          <div><div class="skill-card-name">Databases &amp; Backend</div><div class="skill-card-tools"><span class="skill-tool-tag">MySQL</span><span class="skill-tool-tag">SQL Server</span><span class="skill-tool-tag">Firebase</span><span class="skill-tool-tag">Apps Script</span></div></div>
         </div>
-        <div class="skill-card" data-accent="blue">
-          <div class="skill-icon" style="background:#E3EAF8; font-size:1.2rem;">☁️</div>
-          <div><div class="skill-card-name">Cloud & Backend</div><div class="skill-card-tools"><span class="skill-tool-tag">Firebase</span></div></div>
+
+        <div class="skill-card" data-accent="gold">
+          <div class="skill-icon" style="background:var(--golden);" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8.5 20v-6M13 20V8M17.5 20v-9"/></svg>
+          </div>
+          <div><div class="skill-card-name">Data &amp; Analytics</div><div class="skill-card-tools"><span class="skill-tool-tag">Power BI</span><span class="skill-tool-tag">Excel</span><span class="skill-tool-tag">Pandas</span><span class="skill-tool-tag">NumPy</span></div></div>
         </div>
+
+        <div class="skill-card" data-accent="teal">
+          <div class="skill-icon" style="background:#D8F0EC;" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="7" rx="2"/><rect x="3" y="13.5" width="18" height="7" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg>
+          </div>
+          <div><div class="skill-card-name">IT Systems</div><div class="skill-card-tools"><span class="skill-tool-tag">Microsoft 365</span><span class="skill-tool-tag">Google Workspace</span><span class="skill-tool-tag">Device Management</span></div></div>
+        </div>
+
         <div class="skill-card skill-card-full" data-accent="violet">
-          <div class="skill-icon" style="background:#EDE8FE; font-size:1.2rem;">⚙️</div>
-          <div><div class="skill-card-name">Programming Languages</div><div class="skill-card-tools"><span class="skill-tool-tag">Python</span><span class="skill-tool-tag">Java</span><span class="skill-tool-tag">JavaScript</span><span class="skill-tool-tag">Dart</span></div></div>
+          <div class="skill-icon" style="background:#EDE8FE;" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 3.5c-2.2 0-2.6 1.4-2.6 3.1 0 1.8-.4 3-2.4 3.4v.1c2 .4 2.4 1.6 2.4 3.4 0 1.7.4 3.1 2.6 3.1M15 3.5c2.2 0 2.6 1.4 2.6 3.1 0 1.8.4 3 2.4 3.4v.1c-2 .4-2.4 1.6-2.4 3.4 0 1.7-.4 3.1-2.6 3.1"/></svg>
+          </div>
+          <div><div class="skill-card-name">Programming Languages</div><div class="skill-card-tools"><span class="skill-tool-tag">Python</span><span class="skill-tool-tag">JavaScript</span><span class="skill-tool-tag">Dart</span><span class="skill-tool-tag">Java</span><span class="skill-tool-tag">SQL</span></div></div>
         </div>
+
       </div>
     </div>
+
     <div>
-      <p class="skill-col-title">Soft Skills</p>
+      <p class="skill-col-title">Tools I use daily</p>
+      <div class="soft-panel">
+        <div class="stack-list">
+          <div class="stack-row"><span class="stack-dot"></span><span class="stack-name">Figma</span><span class="stack-note">Design &amp; prototyping</span></div>
+          <div class="stack-row"><span class="stack-dot"></span><span class="stack-name">VS Code</span><span class="stack-note">Front-end builds</span></div>
+          <div class="stack-row"><span class="stack-dot"></span><span class="stack-name">Git &amp; GitHub</span><span class="stack-note">Version control</span></div>
+          <div class="stack-row"><span class="stack-dot"></span><span class="stack-name">Google Apps Script</span><span class="stack-note">Internal tools</span></div>
+          <div class="stack-row"><span class="stack-dot"></span><span class="stack-name">Power BI</span><span class="stack-note">Dashboards</span></div>
+          <div class="stack-row"><span class="stack-dot"></span><span class="stack-name">Microsoft 365 &amp; Workspace</span><span class="stack-note">Administration</span></div>
+        </div>
+      </div>
+
+      <p class="skill-col-title" style="margin-top:28px;">Strengths</p>
       <div class="soft-panel">
         <div class="soft-chips">
-          <span class="soft-chip"><span class="soft-chip-icon">🧩</span> Problem Solving</span>
-          <span class="soft-chip"><span class="soft-chip-icon">🔍</span> Attention to Detail</span>
-          <span class="soft-chip"><span class="soft-chip-icon">🧠</span> Analytical Thinking</span>
-          <span class="soft-chip"><span class="soft-chip-icon">✨</span> Creativity</span>
-          <span class="soft-chip"><span class="soft-chip-icon">🔄</span> Adaptability</span>
-          <span class="soft-chip"><span class="soft-chip-icon">⏱️</span> Time Management</span>
-          <span class="soft-chip"><span class="soft-chip-icon">💬</span> Communication</span>
-          <span class="soft-chip"><span class="soft-chip-icon">🤝</span> Empathy</span>
+          <span class="soft-chip">Problem Solving</span>
+          <span class="soft-chip">Attention to Detail</span>
+          <span class="soft-chip">Working Independently</span>
+          <span class="soft-chip">Technical Communication</span>
         </div>
       </div>
     </div>
