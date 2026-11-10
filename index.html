@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <script>
 (function(){
   try {
     var t = localStorage.getItem('theme');
-    if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', t);
-  } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+    document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+  } catch (e) { document.documentElement.setAttribute('data-theme', 'dark'); }
 })();
 </script>
 <meta charset="UTF-8">
@@ -868,6 +867,117 @@ html, body { transition: background .4s cubic-bezier(.22,.8,.3,1); }
   .nav-divider { display: none; }
   .nav-actions { gap: 10px; }
 }
+
+/* quick facts */
+.qf-title { margin-bottom: 20px; color: rgba(255,255,255,.3); }
+.qf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: 18px; overflow: hidden; }
+.qf-tile { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.07);
+  padding: 24px 20px; min-height: 110px; display: flex; flex-direction: column; justify-content: space-between; }
+.qf-tile-gold { background: rgba(201,169,110,.12); border-color: rgba(201,169,110,.2); }
+.qf-num { font-size: 2.4rem; font-weight: 800; letter-spacing: -.05em; color: var(--white); line-height: 1; }
+.qf-num-gold { color: var(--gold); }
+.qf-label { font-size: .65rem; font-weight: 500; color: rgba(255,255,255,.35); letter-spacing: .05em; text-transform: uppercase; }
+
+/* =======================================================================
+   LIGHT THEME — every section turns light; nothing stays navy
+   ======================================================================= */
+:root[data-theme="light"] body { background: #F5F0E8; }
+
+/* nav */
+:root[data-theme="light"] nav { background: rgba(250,247,241,.9); border-bottom-color: rgba(11,22,40,.08); }
+:root[data-theme="light"] .nav-logo { color: var(--ink); }
+:root[data-theme="light"] .nav-links { background: rgba(11,22,40,.04); border-color: rgba(11,22,40,.08); }
+:root[data-theme="light"] .nav-links a { color: var(--mid); }
+:root[data-theme="light"] .nav-links a:hover { background: rgba(11,22,40,.06); color: var(--ink); }
+:root[data-theme="light"] .nav-links a.active { color: #8a6522; }
+:root[data-theme="light"] .nav-pill-glow { background: rgba(201,169,110,.22); border-color: rgba(201,169,110,.45); }
+:root[data-theme="light"] .theme-toggle { color: var(--ink); background: rgba(11,22,40,.05); border-color: rgba(11,22,40,.1); }
+:root[data-theme="light"] .theme-toggle:hover { background: rgba(201,169,110,.25); border-color: rgba(201,169,110,.5); }
+:root[data-theme="light"] .nav-divider { background: rgba(11,22,40,.14); }
+:root[data-theme="light"] .nav-burger span { background: var(--ink); }
+:root[data-theme="light"] .nav-mobile { border-top-color: rgba(11,22,40,.08); }
+:root[data-theme="light"] .nav-mobile a { color: var(--mid); border-bottom-color: rgba(11,22,40,.07); }
+
+/* hero */
+:root[data-theme="light"] .hero-bg {
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 50%, #E4EDFA 0%, transparent 65%),
+    radial-gradient(ellipse 50% 80% at 10% 90%, #F4E9D6 0%, transparent 55%),
+    linear-gradient(160deg, #FBF8F3 0%, #F5F0E8 42%, #EDE5D4 100%);
+}
+:root[data-theme="light"] .hero-bg::before { background-image: radial-gradient(rgba(11,22,40,.07) 1px, transparent 1px); }
+:root[data-theme="light"] .hero-eyebrow { color: #8a6522; }
+:root[data-theme="light"] h1.hero-title { color: var(--ink); }
+:root[data-theme="light"] h1.hero-title em { color: #8a6522; }
+:root[data-theme="light"] .hero-desc { color: var(--mid); }
+:root[data-theme="light"] .work-caption { color: rgba(11,22,40,.45); }
+:root[data-theme="light"] .btn-ghost-white { background: rgba(11,22,40,.04); border-color: rgba(11,22,40,.16); color: var(--ink); }
+:root[data-theme="light"] .btn-ghost-white:hover { background: rgba(11,22,40,.08); border-color: rgba(11,22,40,.3); color: var(--ink); }
+:root[data-theme="light"] .work-card { background: var(--white); border-color: rgba(11,22,40,.1); box-shadow: 0 26px 60px rgba(11,22,40,.16); }
+:root[data-theme="light"] .work-caption { color: rgba(11,22,40,.5); }
+
+/* marquee */
+:root[data-theme="light"] .marquee-strip {
+  background: linear-gradient(90deg, #EDE5D4, #F5F0E8, #EDE5D4);
+  border-top-color: rgba(11,22,40,.08); border-bottom-color: rgba(11,22,40,.08);
+}
+:root[data-theme="light"] .marquee-item { color: var(--mid); }
+
+/* about */
+:root[data-theme="light"] #about {
+  background:
+    radial-gradient(ellipse 60% 70% at 95% 20%, #E4EDFA 0%, transparent 55%),
+    radial-gradient(ellipse 40% 50% at 5% 80%, #F4E9D6 0%, transparent 50%),
+    linear-gradient(145deg, #FBF8F3 0%, #F5F0E8 50%, #EDE5D4 100%);
+}
+:root[data-theme="light"] #about .section-label,
+:root[data-theme="light"] .qf-title { color: var(--soft); }
+:root[data-theme="light"] #about .section-title { color: var(--ink); }
+:root[data-theme="light"] #about .section-title em { color: #8a6522; }
+:root[data-theme="light"] .about-text p { color: var(--mid); }
+:root[data-theme="light"] .about-text strong { color: var(--ink); }
+:root[data-theme="light"] .about-portrait { border-color: rgba(11,22,40,.1); box-shadow: 0 18px 44px rgba(11,22,40,.14); }
+:root[data-theme="light"] .about-portrait:hover { box-shadow: 0 28px 62px rgba(11,22,40,.2); }
+:root[data-theme="light"] .qf-tile { background: var(--white); border-color: rgba(11,22,40,.08); }
+:root[data-theme="light"] .qf-tile-gold { background: rgba(201,169,110,.16); border-color: rgba(201,169,110,.32); }
+:root[data-theme="light"] .qf-num { color: var(--ink); }
+:root[data-theme="light"] .qf-num-gold { color: #8a6522; }
+:root[data-theme="light"] .qf-label { color: var(--mid); }
+
+/* projects */
+:root[data-theme="light"] #projects { background: var(--cream2); }
+:root[data-theme="light"] #projects .section-label { color: var(--soft); }
+:root[data-theme="light"] #projects .section-title { color: var(--ink); }
+:root[data-theme="light"] #projects .section-title em { color: #8a6522; }
+:root[data-theme="light"] .proj-card { background: var(--white); border-color: rgba(11,22,40,.09); }
+:root[data-theme="light"] .proj-card:hover { border-color: rgba(201,169,110,.5); box-shadow: 0 20px 48px rgba(11,22,40,.13); }
+:root[data-theme="light"] .proj-thumb-wrap { background: var(--cream); }
+:root[data-theme="light"] .proj-thumb-overlay { background: linear-gradient(to bottom, transparent 55%, rgba(11,22,40,.16) 100%); }
+:root[data-theme="light"] .proj-logo { border-color: rgba(11,22,40,.1); background: var(--cream); }
+:root[data-theme="light"] .proj-name { color: var(--ink); }
+:root[data-theme="light"] .proj-desc { color: var(--mid); }
+:root[data-theme="light"] .proj-cta-bar { background: var(--cream); border-top-color: rgba(11,22,40,.08); }
+:root[data-theme="light"] .proj-cta-label { color: var(--soft); }
+:root[data-theme="light"] .proj-card:hover .proj-cta-label { color: #8a6522; }
+:root[data-theme="light"] .proj-cta-icon { background: rgba(11,22,40,.06); color: var(--mid); }
+:root[data-theme="light"] .proj-arrow-btn { background: rgba(255,255,255,.75); color: var(--mid); }
+:root[data-theme="light"] .proj-dot { background: rgba(11,22,40,.28); }
+
+/* footer */
+:root[data-theme="light"] .footer-bg {
+  background:
+    radial-gradient(ellipse 60% 80% at 90% 10%, #E4EDFA 0%, transparent 55%),
+    linear-gradient(160deg, #F5F0E8 0%, #EDE5D4 100%);
+  border-top-color: rgba(11,22,40,.1);
+}
+:root[data-theme="light"] .footer-name { color: var(--ink); }
+:root[data-theme="light"] .footer-name em { color: #8a6522; }
+:root[data-theme="light"] .footer-tagline { color: var(--soft); }
+:root[data-theme="light"] .footer-link { color: var(--mid); }
+:root[data-theme="light"] .footer-link:hover { color: var(--ink); }
+:root[data-theme="light"] .footer-copy { color: rgba(11,22,40,.42); }
+:root[data-theme="light"] .footer-links { border-top-color: rgba(11,22,40,.08); }
+:root[data-theme="light"] .footer-bottom { border-top-color: rgba(11,22,40,.08); }
 </style>
 </head>
 <body>
@@ -977,23 +1087,23 @@ html, body { transition: background .4s cubic-bezier(.22,.8,.3,1); }
         <p>I focus on clean, user-friendly interfaces and responsive web solutions — turning ideas into <strong>meaningful digital products</strong> that solve real problems.</p>
       </div>
       <div style="padding-top:8px;">
-        <p class="section-label" style="margin-bottom:20px; color:rgba(255,255,255,.3);">Quick facts</p>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:2px; border-radius:18px; overflow:hidden;">
-          <div style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.07); padding:24px 20px; min-height:110px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="font-size:2.4rem; font-weight:800; letter-spacing:-.05em; color:var(--white); line-height:1;">2+</div>
-            <div style="font-size:.65rem; font-weight:500; color:rgba(255,255,255,.35); letter-spacing:.05em; text-transform:uppercase;">Years Experience</div>
+        <p class="section-label qf-title">Quick facts</p>
+        <div class="qf-grid">
+          <div class="qf-tile">
+            <div class="qf-num">2+</div>
+            <div class="qf-label">Years Experience</div>
           </div>
-          <div style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.07); padding:24px 20px; min-height:110px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="font-size:2.4rem; font-weight:800; letter-spacing:-.05em; color:var(--white); line-height:1;">4+</div>
-            <div style="font-size:.65rem; font-weight:500; color:rgba(255,255,255,.35); letter-spacing:.05em; text-transform:uppercase;">Projects Shipped</div>
+          <div class="qf-tile">
+            <div class="qf-num">4+</div>
+            <div class="qf-label">Projects Shipped</div>
           </div>
-          <div style="background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.07); padding:24px 20px; min-height:110px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="font-size:2.4rem; font-weight:800; letter-spacing:-.05em; color:var(--white); line-height:1;">3</div>
-            <div style="font-size:.65rem; font-weight:500; color:rgba(255,255,255,.35); letter-spacing:.05em; text-transform:uppercase;">Internships</div>
+          <div class="qf-tile">
+            <div class="qf-num">3</div>
+            <div class="qf-label">Internships</div>
           </div>
-          <div style="background:rgba(201,169,110,.12); border:1px solid rgba(201,169,110,.2); padding:24px 20px; min-height:110px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="font-size:2.4rem; font-weight:800; letter-spacing:-.05em; color:var(--gold); line-height:1;">2×</div>
-            <div style="font-size:.65rem; font-weight:500; color:rgba(255,255,255,.35); letter-spacing:.05em; text-transform:uppercase;">Competition Winner</div>
+          <div class="qf-tile qf-tile-gold">
+            <div class="qf-num qf-num-gold">2×</div>
+            <div class="qf-label">Competition Winner</div>
           </div>
         </div>
       </div>
