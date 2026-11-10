@@ -978,6 +978,34 @@ html, body { transition: background .4s cubic-bezier(.22,.8,.3,1); }
 :root[data-theme="light"] .footer-copy { color: rgba(11,22,40,.42); }
 :root[data-theme="light"] .footer-links { border-top-color: rgba(11,22,40,.08); }
 :root[data-theme="light"] .footer-bottom { border-top-color: rgba(11,22,40,.08); }
+
+/* ===== hero work stack: bigger cards, each its own link and award ===== */
+.work-stack { padding: 8px 0 58px; }
+.work-card { display: block; text-decoration: none; }
+.work-card-back {
+  position: absolute; top: 0; right: 0; width: 82%; aspect-ratio: 16/9;
+  transform: rotate(4deg); opacity: .92; z-index: 1;
+  transition: transform .5s cubic-bezier(.22,.8,.3,1), opacity .4s cubic-bezier(.22,.8,.3,1), box-shadow .5s cubic-bezier(.22,.8,.3,1);
+}
+.work-card-front {
+  position: relative; width: 94%; margin-top: 76px; aspect-ratio: 16/9;
+  transform: rotate(-2.5deg); z-index: 2;
+  transition: transform .5s cubic-bezier(.22,.8,.3,1), opacity .4s cubic-bezier(.22,.8,.3,1), box-shadow .5s cubic-bezier(.22,.8,.3,1);
+}
+.hero-right:hover .work-card { opacity: .6; }
+.work-card:hover { opacity: 1 !important; z-index: 5;
+  transform: rotate(0deg) scale(1.05) translateY(-10px);
+  box-shadow: 0 42px 92px rgba(0,0,0,.55); }
+.work-card-back .work-tag { top: 12px; right: 12px; left: auto; }
+.work-tag { font-size: .65rem; padding: 6px 12px; }
+.work-caption { margin-top: 28px; font-size: .65rem; }
+#p-ana, #p-araa { scroll-margin-top: 110px; }
+@media (max-width: 1024px) {
+  .work-card-back { display: none; }
+  .work-card-front { width: 100%; margin-top: 0; transform: none; }
+  .work-card:hover { transform: none; box-shadow: none; }
+  .hero-right:hover .work-card { opacity: 1; }
+}
 </style>
 </head>
 <body>
@@ -1038,14 +1066,15 @@ html, body { transition: background .4s cubic-bezier(.22,.8,.3,1); }
     </div>
     <div class="hero-right">
       <div class="work-stack">
-        <div class="work-card work-card-back">
+        <a href="#p-araa" class="work-card work-card-back" aria-label="Araa — first place, Robocon 2025">
           <img src="ar1.jpg" alt="Araa — assistive navigation app screens" loading="lazy">
-        </div>
-        <div class="work-card work-card-front">
+          <span class="work-tag">🏆 1st · Robocon 2025</span>
+        </a>
+        <a href="#p-ana" class="work-card work-card-front" aria-label="Ana Mawhoob — first place, Waad Education">
           <img src="ana1.jpg" alt="Ana Mawhoob — talent management platform">
-          <span class="work-tag">🏆 1st Place · Waad Education</span>
-        </div>
-        <span class="work-caption">Selected work — Ana Mawhoob &amp; Araa</span>
+          <span class="work-tag">🏆 1st · Waad Education</span>
+        </a>
+        <span class="work-caption">Selected work — tap a card to open it</span>
       </div>
     </div>
   </section>
@@ -1218,7 +1247,7 @@ html, body { transition: background .4s cubic-bezier(.22,.8,.3,1); }
     <h2 class="section-title">Things I've <em>built</em></h2>
     <div class="projects-grid">
 
-      <a href="https://drive.google.com/file/d/18Hs2xE7fpILyLwnjf8JAQUW9agms-CYq/view" target="_blank" rel="noopener" class="proj-card reveal">
+      <a id="p-ana" href="https://drive.google.com/file/d/18Hs2xE7fpILyLwnjf8JAQUW9agms-CYq/view" target="_blank" rel="noopener" class="proj-card reveal">
         <div class="proj-thumb-wrap">
           <div class="proj-slides" data-auto="true">
             <div class="proj-slide active"><img src="ana1.jpg" alt="Ana Mawhoob interface"></div>
@@ -1239,7 +1268,7 @@ html, body { transition: background .4s cubic-bezier(.22,.8,.3,1); }
         <div class="proj-cta-bar"><span class="proj-cta-label">View Presentation</span><span class="proj-cta-icon">↗</span></div>
       </a>
 
-      <a href="https://drive.google.com/file/d/1GkdKNjmiFouq1VKtXHIO8DCWFjFBpLGl/view" target="_blank" rel="noopener" class="proj-card reveal">
+      <a id="p-araa" href="https://drive.google.com/file/d/1GkdKNjmiFouq1VKtXHIO8DCWFjFBpLGl/view" target="_blank" rel="noopener" class="proj-card reveal">
         <div class="proj-thumb-wrap">
           <div class="proj-slides" data-auto="true">
             <div class="proj-slide active"><img src="ar1.jpg" alt="Araa interface"></div>
