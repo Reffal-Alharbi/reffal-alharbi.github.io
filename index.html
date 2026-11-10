@@ -1006,6 +1006,21 @@ html, body { transition: background .4s cubic-bezier(.22,.8,.3,1); }
   .work-card:hover { transform: none; box-shadow: none; }
   .hero-right:hover .work-card { opacity: 1; }
 }
+
+.work-stack { padding: 8px 0 18px; }
+.work-go {
+  position: absolute; right: 12px; bottom: 12px;
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(11,22,40,.5); color: #fff; font-size: .85rem;
+  opacity: 0; transform: translateY(6px) scale(.85);
+  transition: opacity .35s cubic-bezier(.22,.8,.3,1), transform .35s cubic-bezier(.22,.8,.3,1), background .35s cubic-bezier(.22,.8,.3,1);
+  pointer-events: none;
+}
+.work-card:hover .work-go { opacity: 1; transform: translateY(0) scale(1); background: var(--gold); color: var(--navy-1); }
+@media (max-width: 1024px) {
+  .work-go { opacity: 1; transform: none; background: rgba(11,22,40,.55); }
+}
 </style>
 </head>
 <body>
@@ -1069,12 +1084,13 @@ html, body { transition: background .4s cubic-bezier(.22,.8,.3,1); }
         <a href="#p-araa" class="work-card work-card-back" aria-label="Araa — first place, Robocon 2025">
           <img src="ar1.jpg" alt="Araa — assistive navigation app screens" loading="lazy">
           <span class="work-tag">🏆 1st · Robocon 2025</span>
+          <span class="work-go" aria-hidden="true">↗</span>
         </a>
         <a href="#p-ana" class="work-card work-card-front" aria-label="Ana Mawhoob — first place, Waad Education">
           <img src="ana1.jpg" alt="Ana Mawhoob — talent management platform">
           <span class="work-tag">🏆 1st · Waad Education</span>
+          <span class="work-go" aria-hidden="true">↗</span>
         </a>
-        <span class="work-caption">Selected work — tap a card to open it</span>
       </div>
     </div>
   </section>
